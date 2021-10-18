@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.navArgs
 import com.itis.templateitis.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
@@ -61,20 +63,23 @@ class HomeFragment : Fragment() {
 
     companion object {
 
-        fun newInstance2(id: Int): HomeFragment {
-            val fragment = HomeFragment()
-            val bundle = Bundle()
-            bundle.putInt("Id", id)
-            bundle.putString("KEY_STRING", "sdas")
-            fragment.arguments = bundle
-            return fragment
-        }
-
         fun newInstance(id: Int): HomeFragment = HomeFragment().apply {
             arguments = Bundle().apply {
                 putInt("Id", id)
                 putString("KEY_STRING", "sdas")
+                putParcelable("KEY_PARCELABLE", User(1, "sd", "email"))
             }
         }
+
+        fun bundleArgs(id: Int): Bundle = Bundle().apply {
+            putInt("Id", id)
+            putString("KEY_STRING", "sdas")
+            putParcelable("KEY_PARCELABLE", User(1, "sd", "email"))
+        }
+
+        fun bundleArgs(id: Int, id2: Int): Bundle = bundleOf(
+            "ID" to id,
+            "ID@" to id2
+        )
     }
 }
