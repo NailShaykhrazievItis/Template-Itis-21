@@ -1,5 +1,6 @@
 package com.itis.templateitis
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +8,7 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
+import com.google.android.material.snackbar.Snackbar
 import com.itis.templateitis.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
@@ -48,7 +50,9 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding?.run {
-
+            tvTitle.setOnClickListener {
+                showDialog()
+            }
         }
 
         arguments?.getInt("Id")?.let {
@@ -59,6 +63,43 @@ class HomeFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         binding = null
+    }
+
+    private fun showDialog() {
+        /* using default alert build
+        AlertDialog.Builder(requireContext())
+            .setTitle("AMAZING TITLE")
+            .setMessage("Message Hello")
+            .setView(R.layout.fragment_user)
+            .setPositiveButton("OK") { dialog, _ ->
+                binding?.root?.also {
+                    Snackbar.make(it, "Callback message", Snackbar.LENGTH_LONG).show()
+                }
+
+            }
+            .setNegativeButton("Cancel") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .setNeutralButton("More") { dialog, _ ->
+
+            }
+            .show()*/
+
+        // using single class for showing dialog
+        EmailDialog.show(childFragmentManager, negative = {
+            Snackbar.make(binding!!.root, it, Snackbar.LENGTH_LONG).show()
+        }, positive = {
+            Snackbar.make(binding!!.root, it, Snackbar.LENGTH_LONG).show()
+        })
+
+        // using extension for showing dialog
+        showDialogExt(title = "Title", message = "") {
+            Snackbar.make(
+                binding!!.root,
+                "Positive",
+                Snackbar.LENGTH_LONG
+            ).show()
+        }
     }
 
     companion object {
