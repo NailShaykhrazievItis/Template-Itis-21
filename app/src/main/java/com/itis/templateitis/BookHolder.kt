@@ -9,9 +9,10 @@ import com.bumptech.glide.RequestManager
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.itis.templateitis.databinding.ItemBookBinding
+import com.itis.templateitis.databinding.ItemCvBookBinding
 
 class BookHolder(
-    private val binding: ItemBookBinding,
+    private val binding: ItemCvBookBinding,
     private val glide: RequestManager,
     private val action: (String) -> Unit
 ) : RecyclerView.ViewHolder(binding.root) {
@@ -56,6 +57,14 @@ class BookHolder(
         }
     }
 
+    fun updateTitle(title: String) {
+        binding.tvTitle.text = title
+    }
+
+    fun updateAuthor(title: String) {
+        binding.tvDesc.text = title
+    }
+
     companion object {
 
         fun create(
@@ -63,7 +72,7 @@ class BookHolder(
             glide: RequestManager,
             action: (String) -> Unit
         ) = BookHolder(
-            ItemBookBinding.inflate(
+            ItemCvBookBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
