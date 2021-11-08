@@ -1,6 +1,6 @@
 package com.itis.templateitis.header
 
-import com.itis.templateitis.Book
+import com.itis.templateitis.model.Book
 
 data class BookWrapper(
     var title: String? = null,

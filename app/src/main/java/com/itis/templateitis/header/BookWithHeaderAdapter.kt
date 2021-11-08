@@ -3,7 +3,7 @@ package com.itis.templateitis.header
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.RequestManager
-import com.itis.templateitis.BookHolder
+import com.itis.templateitis.adapter.BookHolder
 import com.itis.templateitis.R
 import java.lang.IllegalStateException
 import java.lang.RuntimeException

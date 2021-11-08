@@ -1,9 +1,12 @@
-package com.itis.templateitis
+package com.itis.templateitis.adapter
 
 import android.os.Bundle
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.RequestManager
+import com.itis.templateitis.diffutils.BookDiffUtils
+import com.itis.templateitis.model.Book
 
 class BookAdapter(
     private val list: ArrayList<Book>,
@@ -43,10 +46,6 @@ class BookAdapter(
 
     override fun getItemCount(): Int = list.size
 
-    override fun getItemViewType(position: Int): Int {
-        return super.getItemViewType(position)
-    }
-
     fun updateCurrentItem(book: Book, position: Int) {
         if (position >= itemCount) return
 
@@ -71,9 +70,11 @@ class BookAdapter(
     }
 
     fun updateData(newList: List<Book>) {
+        val callback = BookDiffUtils(list, newList)
+        val diffResult: DiffUtil.DiffResult = DiffUtil.calculateDiff(callback)
+        diffResult.dispatchUpdatesTo(this)
+
         list.clear()
         list.addAll(newList)
-
-        notifyDataSetChanged()
     }
 }

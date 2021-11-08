@@ -1,4 +1,4 @@
-package com.itis.templateitis
+package com.itis.templateitis.model
 
 data class Book(
     val title: String,

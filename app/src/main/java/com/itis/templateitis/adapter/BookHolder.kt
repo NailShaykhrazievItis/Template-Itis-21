@@ -1,5 +1,6 @@
-package com.itis.templateitis
+package com.itis.templateitis.adapter
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
@@ -8,8 +9,8 @@ import com.bumptech.glide.Priority
 import com.bumptech.glide.RequestManager
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
-import com.itis.templateitis.databinding.ItemBookBinding
 import com.itis.templateitis.databinding.ItemCvBookBinding
+import com.itis.templateitis.model.Book
 
 class BookHolder(
     private val binding: ItemCvBookBinding,
@@ -54,6 +55,17 @@ class BookHolder(
         // use only one [setOnClickListener]
         itemView.setOnClickListener {
             action(item.title)
+        }
+    }
+
+    fun updateFields(bundle: Bundle) {
+        bundle.run {
+            getString("TITLE")?.also {
+                updateTitle(it)
+            }
+            getString("AUTHOR")?.also {
+                updateAuthor(it)
+            }
         }
     }
 
