@@ -7,4 +7,21 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
+    <EditText
+        android:id="@+id/et_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        app:layout_constraintBottom_toTopOf="@id/btn_notify" />
+
+    <Button
+        android:id="@+id/btn_notify"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="NOTIFY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

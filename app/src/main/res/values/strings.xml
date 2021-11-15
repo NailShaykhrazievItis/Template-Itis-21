@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Template Itis</string>
+
+
+    <string name="notification_channel_title">Channel Title</string>
+    <string name="notification_channel_desc">Channel Desc blablabla</string>
 </resources>
