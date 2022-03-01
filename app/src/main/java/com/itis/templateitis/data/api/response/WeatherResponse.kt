@@ -10,7 +10,6 @@ data class WeatherResponse(
     val clouds: Clouds,
     @SerializedName("cod")
     val cod: Int,
-
     @SerializedName("dt")
     val dt: Int,
     @SerializedName("id")

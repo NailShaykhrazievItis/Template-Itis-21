@@ -1,6 +1,5 @@
 package com.itis.templateitis.data.api.response
 
-
 import com.google.gson.annotations.SerializedName
 
 data class Weather(
