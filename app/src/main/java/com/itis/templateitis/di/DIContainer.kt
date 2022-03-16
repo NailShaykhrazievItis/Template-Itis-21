@@ -1,7 +1,12 @@
 package com.itis.templateitis.di
 
 import com.itis.templateitis.BuildConfig
+import com.itis.templateitis.data.WeatherRepositoryImpl
 import com.itis.templateitis.data.api.Api
+import com.itis.templateitis.data.api.mapper.WeatherMapper
+import com.itis.templateitis.domain.repository.WeatherRepository
+import com.itis.templateitis.domain.usecase.GetWeatherUseCase
+import kotlinx.coroutines.Dispatchers
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -43,7 +48,7 @@ object DIContainer {
             .build()
     }
 
-    val api: Api by lazy {
+    private val api: Api by lazy {
         Retrofit.Builder()
             .baseUrl(BASE_URL)
             .client(okhttp)
@@ -51,4 +56,14 @@ object DIContainer {
             .build()
             .create(Api::class.java)
     }
+
+    private val weatherRepository: WeatherRepository = WeatherRepositoryImpl(
+        api = api,
+        weatherMapper = WeatherMapper()
+    )
+
+    val getWeatherUseCase: GetWeatherUseCase = GetWeatherUseCase(
+        weatherRepository = weatherRepository,
+        dispatcher = Dispatchers.Default
+    )
 }
