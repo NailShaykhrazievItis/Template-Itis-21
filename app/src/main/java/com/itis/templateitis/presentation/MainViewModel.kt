@@ -7,8 +7,9 @@ import androidx.lifecycle.viewModelScope
 import com.itis.templateitis.domain.entity.Weather
 import com.itis.templateitis.domain.usecase.GetWeatherUseCase
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class MainViewModel(
+class MainViewModel @Inject constructor(
     private val getWeatherUseCase: GetWeatherUseCase
 ) : ViewModel() {
 
@@ -18,10 +19,10 @@ class MainViewModel(
     private var _error: MutableLiveData<Exception> = MutableLiveData()
     val error: LiveData<Exception> = _error
 
-    fun onGetWeatherClick() {
+    fun onGetWeatherClick(city: String) {
         viewModelScope.launch {
             try {
-                val weather = getWeatherUseCase("Paris")
+                val weather = getWeatherUseCase(city)
                 _weather.value = Result.success(weather)
             } catch (ex: Exception) {
                 _weather.value = Result.failure(ex)
