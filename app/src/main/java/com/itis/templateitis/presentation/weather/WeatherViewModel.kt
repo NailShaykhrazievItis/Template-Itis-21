@@ -1,4 +1,4 @@
-package com.itis.templateitis.presentation
+package com.itis.templateitis.presentation.weather
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -9,7 +9,7 @@ import com.itis.templateitis.domain.usecase.GetWeatherUseCase
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class MainViewModel @Inject constructor(
+class WeatherViewModel @Inject constructor(
     private val getWeatherUseCase: GetWeatherUseCase
 ) : ViewModel() {
 

@@ -1,4 +1,4 @@
-package com.itis.templateitis.presentation
+package com.itis.templateitis.presentation.weather
 
 import android.os.Bundle
 import android.util.Log
@@ -9,20 +9,22 @@ import com.google.android.material.snackbar.Snackbar
 import com.itis.templateitis.App
 import com.itis.templateitis.R
 import com.itis.templateitis.utils.AppViewModelFactory
+import dagger.android.AndroidInjection
+import dagger.android.DaggerActivity
+import dagger.android.support.DaggerAppCompatActivity
 import retrofit2.HttpException
 import javax.inject.Inject
 
-class MainActivity : AppCompatActivity() {
+class WeatherActivity : DaggerAppCompatActivity() {
 
     @Inject
     lateinit var factory: AppViewModelFactory
 
-    private val viewModel: MainViewModel by viewModels {
+    private val viewModel: WeatherViewModel by viewModels {
         factory
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        (application as App).appComponent.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 

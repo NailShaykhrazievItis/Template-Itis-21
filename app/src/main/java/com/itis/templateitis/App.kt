@@ -1,21 +1,25 @@
 package com.itis.templateitis
 
 import android.app.Application
-import com.itis.templateitis.di.AppComponent
-import com.itis.templateitis.di.module.AppModule
 import com.itis.templateitis.di.DaggerAppComponent
-import com.itis.templateitis.di.module.NetModule
+import dagger.android.AndroidInjector
+import dagger.android.DaggerApplication
+import dagger.android.DispatchingAndroidInjector
+import dagger.android.HasAndroidInjector
+import javax.inject.Inject
 
-class App : Application() {
+class App : Application(), HasAndroidInjector {
 
-    lateinit var appComponent: AppComponent
+    @Inject
+    lateinit var androidInjector: DispatchingAndroidInjector<Any>
 
     override fun onCreate() {
         super.onCreate()
-        appComponent = DaggerAppComponent
-            .builder()
-            .appModule(AppModule())
-            .netModule(NetModule())
+        DaggerAppComponent.builder()
+            .application(this)
             .build()
+            .inject(this)
     }
+
+    override fun androidInjector(): AndroidInjector<Any> = androidInjector
 }

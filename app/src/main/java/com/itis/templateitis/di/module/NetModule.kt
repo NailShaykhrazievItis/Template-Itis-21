@@ -2,6 +2,8 @@ package com.itis.templateitis.di.module
 
 import com.itis.templateitis.BuildConfig
 import com.itis.templateitis.data.api.Api
+import com.itis.templateitis.di.qualifier.ApiKeyInterceptor
+import com.itis.templateitis.di.qualifier.LoggingInterceptor
 import dagger.Module
 import dagger.Provides
 import okhttp3.Interceptor
@@ -15,11 +17,13 @@ private const val BASE_URL = "https://api.openweathermap.org/data/2.5/"
 private const val API_KEY = "56fc6c6cb76c0864b4cd055080568268"
 private const val QUERY_API_KEY = "appid"
 
+private const val NAMED_APIKEY = "saajfdsakjds3akn"
+
 @Module
 class NetModule {
 
     @Provides
-    @Named("apiKey")
+    @ApiKeyInterceptor
     fun apiKeyInterceptor(): Interceptor = Interceptor { chain ->
         val original = chain.request()
         val newURL = original.url.newBuilder()
@@ -34,7 +38,7 @@ class NetModule {
     }
 
     @Provides
-    @Named("logger")
+    @LoggingInterceptor
     fun provideLoggingInterceptor(): Interceptor {
         return HttpLoggingInterceptor()
             .setLevel(
@@ -43,9 +47,9 @@ class NetModule {
     }
 
     @Provides
-    fun okhttp(
-        @Named("apiKey") apiKeyInterceptor: Interceptor,
-        @Named("logger") loggingInterceptor: Interceptor,
+    fun provideOkhttp(
+        @ApiKeyInterceptor apiKeyInterceptor: Interceptor,
+        @LoggingInterceptor loggingInterceptor: Interceptor,
     ): OkHttpClient =
         OkHttpClient.Builder()
             .addInterceptor(apiKeyInterceptor)
@@ -60,7 +64,7 @@ class NetModule {
     fun provideGsonConverter(): GsonConverterFactory = GsonConverterFactory.create()
 
     @Provides
-    fun api(
+    fun provideApi(
         okHttpClient: OkHttpClient,
         gsonConverter: GsonConverterFactory,
     ): Api = Retrofit.Builder()
