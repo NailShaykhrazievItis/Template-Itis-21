@@ -6,6 +6,8 @@ import com.itis.templateitis.di.qualifier.ApiKeyInterceptor
 import com.itis.templateitis.di.qualifier.LoggingInterceptor
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -20,6 +22,7 @@ private const val QUERY_API_KEY = "appid"
 private const val NAMED_APIKEY = "saajfdsakjds3akn"
 
 @Module
+@InstallIn(SingletonComponent::class)
 class NetModule {
 
     @Provides

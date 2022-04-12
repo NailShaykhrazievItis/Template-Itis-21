@@ -6,23 +6,14 @@ import android.widget.Button
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
-import com.itis.templateitis.App
 import com.itis.templateitis.R
-import com.itis.templateitis.utils.AppViewModelFactory
-import dagger.android.AndroidInjection
-import dagger.android.DaggerActivity
-import dagger.android.support.DaggerAppCompatActivity
+import dagger.hilt.android.AndroidEntryPoint
 import retrofit2.HttpException
-import javax.inject.Inject
 
-class WeatherActivity : DaggerAppCompatActivity() {
+@AndroidEntryPoint
+class WeatherActivity : AppCompatActivity() {
 
-    @Inject
-    lateinit var factory: AppViewModelFactory
-
-    private val viewModel: WeatherViewModel by viewModels {
-        factory
-    }
+    private val viewModel: WeatherViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
