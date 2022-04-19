@@ -11,6 +11,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.itis.templateitis.App
 import com.itis.templateitis.R
 import com.itis.templateitis.utils.AppViewModelFactory
+import com.itis.templateitis.utils.observeText
 import dagger.android.AndroidInjection
 import dagger.android.DaggerActivity
 import dagger.android.support.DaggerAppCompatActivity
@@ -39,20 +40,23 @@ class WeatherActivity : DaggerAppCompatActivity() {
 
         initObservers()
 
-        findViewById<Button>(R.id.btn_get_weather).setOnClickListener {
-            viewModel.onGetWeatherClick("Paris")
+        findViewById<Button>(R.id.btn_get_weather).apply {
+            setOnClickListener {
+                viewModel.onGetWeatherClick("Paris")
+            }
+            text = "SECOND ACTIVITY"
         }
 
-        val disposable = findViewById<EditText>(R.id.btn_get_weather).observeText()
-            .filter { it.length > 2 }
-            .distinctUntilChanged()
-            .debounce(500L, TimeUnit.MILLISECONDS)
-            .subscribeOn(AndroidSchedulers.mainThread())
-            .subscribeBy(onNext = {
-//                viewModel.search(it)
-            }, onError = {
-
-            })
+//        val disposable = findViewById<EditText>(R.id.btn_get_weather).observeText()
+//            .filter { it.length > 2 }
+//            .distinctUntilChanged()
+//            .debounce(500L, TimeUnit.MILLISECONDS)
+//            .subscribeOn(AndroidSchedulers.mainThread())
+//            .subscribeBy(onNext = {
+////                viewModel.search(it)
+//            }, onError = {
+//
+//            })
     }
 
     private fun initObservers() {
@@ -82,11 +86,4 @@ class WeatherActivity : DaggerAppCompatActivity() {
             }
         }
     }
-
-    fun EditText.observeText(): Flowable<String> = Flowable.create({ emitter ->
-        addTextChangedListener {
-            if (it != null)
-                emitter.onNext(it.toString())
-        }
-    }, BackpressureStrategy.LATEST)
 }

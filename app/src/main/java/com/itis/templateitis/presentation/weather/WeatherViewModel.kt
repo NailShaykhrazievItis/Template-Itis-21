@@ -54,7 +54,7 @@ class WeatherViewModel @Inject constructor(
             .doOnSubscribe {
                 // showLoading()
             }
-            .doAfterSuccess {
+            .doAfterTerminate{
                 // hideLoading
             }
             .subscribeBy(onSuccess = {

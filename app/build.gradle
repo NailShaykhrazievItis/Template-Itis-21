@@ -69,11 +69,21 @@ dependencies {
     debugImplementation "com.squareup.okhttp3:logging-interceptor:${okhttp}"
     // endregion
 
+    // region moxy
+    def moxy = "2.2.2"
+    implementation "com.github.moxy-community:moxy:$moxy"
+    implementation "com.github.moxy-community:moxy-androidx:$moxy"
+    implementation "com.github.moxy-community:moxy-ktx:$moxy"
+    kapt "com.github.moxy-community:moxy-compiler:$moxy"
+    // endregion
+
+    // region dagger
     def dagger = "2.41"
     implementation "com.google.dagger:dagger:${dagger}"
     implementation "com.google.dagger:dagger-android-support:${dagger}"
     kapt "com.google.dagger:dagger-android-processor:${dagger}"
     kapt "com.google.dagger:dagger-compiler:${dagger}"
+    // endregion
 
     testImplementation 'junit:junit:4.13.2'
 
